@@ -1,7 +1,3 @@
-C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\obj\Debug\net9.0-windows\FirstIonideProject.fsproj.AssemblyReference.cache
-C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\obj\Debug\net9.0-windows\FirstIonideProject.AssemblyInfoInputs.cache
-C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\obj\Debug\net9.0-windows\FirstIonideProject.AssemblyInfo.fs
-C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\obj\Debug\net9.0-windows\FirstIonideProject.fsproj.CoreCompileInputs.cache
 C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\bin\Debug\net9.0-windows\FirstIonideProject.exe
 C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\bin\Debug\net9.0-windows\FirstIonideProject.deps.json
 C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\bin\Debug\net9.0-windows\FirstIonideProject.runtimeconfig.json
@@ -21,6 +17,11 @@ C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\bin\Debug\net9.0-windows\ru\F
 C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\bin\Debug\net9.0-windows\tr\FSharp.Core.resources.dll
 C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\bin\Debug\net9.0-windows\zh-Hans\FSharp.Core.resources.dll
 C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\bin\Debug\net9.0-windows\zh-Hant\FSharp.Core.resources.dll
+C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\obj\Debug\net9.0-windows\FirstIonideProject.fsproj.AssemblyReference.cache
+C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\obj\Debug\net9.0-windows\FirstIonideProject.AssemblyInfoInputs.cache
+C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\obj\Debug\net9.0-windows\FirstIonideProject.AssemblyInfo.fs
+C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\obj\Debug\net9.0-windows\FirstIonideProject.fsproj.CoreCompileInputs.cache
+C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\obj\Debug\net9.0-windows\FirstIonideProject.sourcelink.json
 C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\obj\Debug\net9.0-windows\FirstIon.89638813.Up2Date
 C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\obj\Debug\net9.0-windows\FirstIonideProject.dll
 C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\obj\Debug\net9.0-windows\refint\FirstIonideProject.dll
