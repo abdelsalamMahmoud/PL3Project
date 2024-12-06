@@ -5,6 +5,15 @@ open System.Drawing
 // Define student type
 type Student = { ID: int; Name: string; Grades: int list }
 
+open MySql.Data.MySqlClient
+
+// String الاتصال
+let connectionString = "Server=localhost;Database=StudentDB;User=root;Password=1234;"
+
+
+
+
+
 // Static student data
 let students = [
     { ID = 1; Name = "Alice"; Grades = [85; 90; 78] }
@@ -27,6 +36,66 @@ let calculateClassStatistics () =
     let maxGrade = List.max allGrades
     let minGrade = List.min allGrades
     sprintf "Class Average: %d\nHighest Grade: %d\nLowest Grade: %d" average maxGrade minGrade
+
+
+
+
+
+// إضافة طالب جديد
+let addStudentToDB name grades =
+    let gradesAsString = String.Join(",", grades |> List.map string)
+    use connection = new MySqlConnection(connectionString)
+    connection.Open()
+    let query = "INSERT INTO Students (Name, Grades) VALUES (@name, @grades)"
+    use command = new MySqlCommand(query, connection)
+    command.Parameters.AddWithValue("@name", name) |> ignore
+    command.Parameters.AddWithValue("@grades", gradesAsString) |> ignore
+    command.ExecuteNonQuery() |> ignore
+    printfn "تم إضافة الطالب: %s" name
+
+
+
+// جلب بيانات الطلبة
+let getStudentsFromDB () =
+    use connection = new MySqlConnection(connectionString)
+    connection.Open()
+    let query = "SELECT * FROM Students"
+    use command = new MySqlCommand(query, connection)
+    use reader = command.ExecuteReader()
+    let students = 
+        [ while reader.Read() do
+            let id = reader.GetInt32("ID")
+            let name = reader.GetString("Name")
+            let grades = reader.GetString("Grades").Split(',') |> Array.map float |> List.ofArray
+            yield { ID = id; Name = name; Grades = grades } ]
+    students
+
+
+
+// تحديث بيانات طالب
+let updateStudentInDB id newName newGrades =
+    let gradesAsString = String.Join(",", newGrades |> List.map string)
+    use connection = new MySqlConnection(connectionString)
+    connection.Open()
+    let query = "UPDATE Students SET Name = @name, Grades = @grades WHERE ID = @id"
+    use command = new MySqlCommand(query, connection)
+    command.Parameters.AddWithValue("@id", id) |> ignore
+    command.Parameters.AddWithValue("@name", newName) |> ignore
+    command.Parameters.AddWithValue("@grades", gradesAsString) |> ignore
+    command.ExecuteNonQuery() |> ignore
+    printfn "تم تحديث بيانات الطالب ID: %d" id
+
+
+// حذف طالب
+let deleteStudentFromDB id =
+    use connection = new MySqlConnection(connectionString)
+    connection.Open()
+    let query = "DELETE FROM Students WHERE ID = @id"
+    use command = new MySqlCommand(query, connection)
+    command.Parameters.AddWithValue("@id", id) |> ignore
+    command.ExecuteNonQuery() |> ignore
+    printfn "تم حذف الطالب ID: %d" id
+
 
 // Build the GUI
 [<EntryPoint>]
