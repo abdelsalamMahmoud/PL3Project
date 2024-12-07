@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\PL3 Project\\PL3Project\\FirstIonideProject.fsproj": {}
+    "C:\\Users\\Abdel\\OneDrive\\Desktop\\FirstIonideProject\\FirstIonideProject.fsproj": {}
   },
   "projects": {
-    "E:\\PL3 Project\\PL3Project\\FirstIonideProject.fsproj": {
+    "C:\\Users\\Abdel\\OneDrive\\Desktop\\FirstIonideProject\\FirstIonideProject.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\PL3 Project\\PL3Project\\FirstIonideProject.fsproj",
+        "projectUniqueName": "C:\\Users\\Abdel\\OneDrive\\Desktop\\FirstIonideProject\\FirstIonideProject.fsproj",
         "projectName": "FirstIonideProject",
-        "projectPath": "E:\\PL3 Project\\PL3Project\\FirstIonideProject.fsproj",
-        "packagesPath": "C:\\Users\\badry.anas\\.nuget\\packages\\",
-        "outputPath": "E:\\PL3 Project\\PL3Project\\obj\\",
+        "projectPath": "C:\\Users\\Abdel\\OneDrive\\Desktop\\FirstIonideProject\\FirstIonideProject.fsproj",
+        "packagesPath": "C:\\Users\\Abdel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Abdel\\OneDrive\\Desktop\\FirstIonideProject\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\badry.anas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Abdel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,8 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "C:\\Program Files\\dotnet\\sdk\\9.0.101\\FSharp\\library-packs": {},
+          "C:\\Program Files\\dotnet\\sdk\\9.0.100\\FSharp\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -35,7 +38,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
+          "auditMode": "all"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -51,7 +54,13 @@
             },
             "MySql.Data": {
               "target": "Package",
-              "version": "[9.1.0, )"
+              "version": "[9.1.0, )",
+              "generatePathProperty": true
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[8.0.5, )",
+              "generatePathProperty": true
             }
           },
           "imports": [
@@ -73,7 +82,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
