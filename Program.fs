@@ -1,4 +1,4 @@
-﻿open System
+open System
 open System.Windows.Forms
 open System.Drawing
 open MySql.Data.MySqlClient
@@ -22,7 +22,7 @@ let getStudentsFromDB () =
             let name = reader.GetString("Name")
             let grades = reader.GetString("Grades")
                           .Split(',')
-                          |> Array.map (fun g -> int (float g)) // Convert to int after converting to float
+                          |> Array.map (fun g -> int (float g))
                           |> List.ofArray
             yield { ID = id; Name = name; Grades = grades } ]
     students
@@ -30,9 +30,9 @@ let getStudentsFromDB () =
 // Calculate average grade
 let calculateAverage grades =
     grades
-    |> List.map float    // Convert integers to floats
-    |> List.average      // Calculate average as float
-    |> (fun avg -> int avg) // Convert float to int explicitly after averaging
+    |> List.map float    
+    |> List.average      
+    |> int 
 
 // Calculate class statistics
 let calculateClassStatistics () =
@@ -77,8 +77,7 @@ let deleteStudentFromDB id =
     command.ExecuteNonQuery() |> ignore
     printfn "تم حذف الطالب ID: %d" id
 
-// Build the GUI
-[<EntryPoint>]
+    [<EntryPoint>]
 let main argv =
     // Create the form
     let form = new Form(Text = "Student Grades Management System", Width = 800, Height = 600)
@@ -120,12 +119,64 @@ let main argv =
     // Create a button to add a new student
     let addButton = new Button(Text = "Add New Student", Dock = DockStyle.Top)
 
-    // Event to add a new student
+    // Event to add a new student with individual grade inputs
     addButton.Click.Add(fun _ ->
-        let name = "New Student" // Replace this with your input form or dialog box for name
-        let grades = [90; 85; 88] // Replace this with user input for grades
-        addStudentToDB name grades
-        loadStudents() // Reload student list
+        let addDialog = new Form(Text = "Add New Student", Width = 400, Height = 400)
+        
+        // Create input controls
+        let nameLabel = new Label(Text = "Student Name:", Location = Point(10, 20))
+        let nameInput = new TextBox(Location = Point(120, 20), Width = 250)
+        
+        // Create grade input fields with labels
+        let gradeLabels = [1..5] |> List.map (fun i -> 
+            new Label(Text = sprintf "Grade %d:" i, Location = Point(10, 50 + (i * 30))))
+            
+        let gradeInputs = [1..5] |> List.map (fun i -> 
+            new TextBox(Location = Point(120, 50 + (i * 30)), Width = 100))
+            
+        // Add description label
+        let descLabel = new Label(
+            Text = "Enter grades (0-100). Leave empty if not applicable.",
+            Location = Point(10, 220),
+            Width = 350)
+            
+        let submitButton = new Button(Text = "Add Student", Location = Point(120, 250))
+        
+        // Add button click handler
+        submitButton.Click.Add(fun _ ->
+            try
+                let name = nameInput.Text
+                if String.IsNullOrWhiteSpace(name) then
+                    MessageBox.Show("Please enter a student name") |> ignore
+                else
+                    let grades = gradeInputs 
+                                |> List.map (fun input -> 
+                                    if String.IsNullOrWhiteSpace(input.Text) then None
+                                    else 
+                                        let grade = int input.Text
+                                        if grade >= 0 && grade <= 100 then Some grade
+                                        else None)
+                                |> List.choose id  // Remove None values
+
+                    if List.isEmpty grades then
+                        MessageBox.Show("Please enter at least one valid grade (0-100)") |> ignore
+                    else
+                        addStudentToDB name grades
+                        loadStudents()
+                        addDialog.Close()
+            with
+            | ex -> MessageBox.Show("Please enter valid numeric grades between 0 and 100") |> ignore
+        )
+        
+        // Add all controls to the form
+        addDialog.Controls.AddRange(
+            Array.concat [
+                [| nameLabel :> Control; nameInput :> Control; descLabel :> Control; submitButton :> Control |]
+                (gradeLabels |> List.map (fun x -> x :> Control) |> Array.ofList)
+                (gradeInputs |> List.map (fun x -> x :> Control) |> Array.ofList)
+            ])
+        
+        addDialog.ShowDialog() |> ignore
     )
 
     // Create a button to delete a student
@@ -135,24 +186,81 @@ let main argv =
     deleteButton.Click.Add(fun _ ->
         if listBox.SelectedIndex >= 0 then
             let student = getStudentsFromDB () |> List.item listBox.SelectedIndex
-            deleteStudentFromDB student.ID
-            loadStudents() // Reload student list
+            if MessageBox.Show(sprintf "Are you sure you want to delete %s?" student.Name, 
+                             "Confirm Delete", MessageBoxButtons.YesNo) = DialogResult.Yes then
+                deleteStudentFromDB student.ID
+                loadStudents()
     )
 
     // Create a button to update student details
     let updateButton = new Button(Text = "Update Selected Student", Dock = DockStyle.Top)
 
-    // Event to update the selected student's details
+    // Event to update the selected student's details with individual grade inputs
     updateButton.Click.Add(fun _ ->
         if listBox.SelectedIndex >= 0 then
             let student = getStudentsFromDB () |> List.item listBox.SelectedIndex
-            let newName = "Updated Name" // Replace this with user input for new name
-            let newGrades = [95; 90; 92] // Replace this with user input for new grades
-            updateStudentInDB student.ID newName newGrades
-            loadStudents() // Reload student list
+            let updateDialog = new Form(Text = "Update Student", Width = 400, Height = 400)
+            
+            // Create input controls
+            let nameLabel = new Label(Text = "New Name:", Location = Point(10, 20))
+            let nameInput = new TextBox(Text = student.Name, Location = Point(120, 20), Width = 250)
+            
+            // Create grade input fields
+            let gradeLabels = [1..5] |> List.map (fun i -> 
+                new Label(Text = sprintf "Grade %d:" i, Location = Point(10, 50 + (i * 30))))
+                
+            let gradeInputs = [1..5] |> List.mapi (fun i _ -> 
+                let input = new TextBox(Location = Point(120, 50 + (i * 30)), Width = 100)
+                if i < student.Grades.Length then
+                    input.Text <- student.Grades.[i].ToString()
+                input)
+                
+            // Add description label
+            let descLabel = new Label(
+                Text = "Enter grades (0-100). Leave empty if not applicable.",
+                Location = Point(10, 220),
+                Width = 350)
+                
+            let submitButton = new Button(Text = "Update", Location = Point(120, 250))
+            
+            // Update button click handler
+            submitButton.Click.Add(fun _ ->
+                try
+                    let newName = nameInput.Text
+                    if String.IsNullOrWhiteSpace(newName) then
+                        MessageBox.Show("Please enter a student name") |> ignore
+                    else
+                        let newGrades = gradeInputs 
+                                      |> List.map (fun input -> 
+                                          if String.IsNullOrWhiteSpace(input.Text) then None
+                                          else 
+                                              let grade = int input.Text
+                                              if grade >= 0 && grade <= 100 then Some grade
+                                              else None)
+                                      |> List.choose id  // Remove None values
+
+                        if List.isEmpty newGrades then
+                            MessageBox.Show("Please enter at least one valid grade (0-100)") |> ignore
+                        else
+                            updateStudentInDB student.ID newName newGrades
+                            loadStudents()
+                            updateDialog.Close()
+                with
+                | ex -> MessageBox.Show("Please enter valid numeric grades between 0-100") |> ignore
+            )
+            
+            // Add all controls to the form
+            updateDialog.Controls.AddRange(
+                Array.concat [
+                    [| nameLabel :> Control; nameInput :> Control; descLabel :> Control; submitButton :> Control |]
+                    (gradeLabels |> List.map (fun x -> x :> Control) |> Array.ofList)
+                    (gradeInputs |> List.map (fun x -> x :> Control) |> Array.ofList)
+                ])
+            
+            updateDialog.ShowDialog() |> ignore
     )
     
-    // Add controls to the form
+    // Add controls to the main form
     form.Controls.Add(detailsBox)
     form.Controls.Add(listBox)
     form.Controls.Add(statsButton)
