@@ -77,7 +77,7 @@ let deleteStudentFromDB id =
     command.ExecuteNonQuery() |> ignore
     printfn "تم حذف الطالب ID: %d" id
 
-    [<EntryPoint>]
+[<EntryPoint>]
 let main argv =
     // Create the form
     let form = new Form(Text = "Student Grades Management System", Width = 800, Height = 600)
@@ -156,12 +156,13 @@ let main argv =
                                         let grade = int input.Text
                                         if grade >= 0 && grade <= 100 then Some grade
                                         else None)
-                                |> List.choose id  // Remove None values
+                                |> List.choose id
 
                     if List.isEmpty grades then
                         MessageBox.Show("Please enter at least one valid grade (0-100)") |> ignore
                     else
                         addStudentToDB name grades
+                        MessageBox.Show(sprintf "تم إضافة الطالب: %s" name) |> ignore
                         loadStudents()
                         addDialog.Close()
             with
@@ -189,13 +190,14 @@ let main argv =
             if MessageBox.Show(sprintf "Are you sure you want to delete %s?" student.Name, 
                              "Confirm Delete", MessageBoxButtons.YesNo) = DialogResult.Yes then
                 deleteStudentFromDB student.ID
+                MessageBox.Show(sprintf "تم حذف الطالب ID: %d" student.ID) |> ignore
                 loadStudents()
     )
 
     // Create a button to update student details
     let updateButton = new Button(Text = "Update Selected Student", Dock = DockStyle.Top)
 
-    // Event to update the selected student's details with individual grade inputs
+    // Event to update the selected student's details
     updateButton.Click.Add(fun _ ->
         if listBox.SelectedIndex >= 0 then
             let student = getStudentsFromDB () |> List.item listBox.SelectedIndex
@@ -237,12 +239,13 @@ let main argv =
                                               let grade = int input.Text
                                               if grade >= 0 && grade <= 100 then Some grade
                                               else None)
-                                      |> List.choose id  // Remove None values
+                                      |> List.choose id
 
                         if List.isEmpty newGrades then
                             MessageBox.Show("Please enter at least one valid grade (0-100)") |> ignore
                         else
                             updateStudentInDB student.ID newName newGrades
+                            MessageBox.Show(sprintf "تم تحديث بيانات الطالب ID: %d" student.ID) |> ignore
                             loadStudents()
                             updateDialog.Close()
                 with
@@ -270,4 +273,4 @@ let main argv =
     
     // Run the application
     Application.Run(form)
-    0
+    0 
