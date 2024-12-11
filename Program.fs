@@ -77,7 +77,7 @@ let deleteStudentFromDB id =
     command.ExecuteNonQuery() |> ignore
     printfn "تم حذف الطالب ID: %d" id
 
-    [<EntryPoint>]
+[<EntryPoint>]
 let main argv =
     // Create the form
     let form = new Form(Text = "Student Grades Management System", Width = 800, Height = 600)
