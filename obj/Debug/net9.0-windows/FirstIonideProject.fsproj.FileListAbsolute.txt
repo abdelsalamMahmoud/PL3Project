@@ -40,6 +40,7 @@ C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\bin\Debug\net9.0-windows\runt
 C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\bin\Debug\net9.0-windows\runtimes\win-x64\native\k5sprt64.dll
 C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\bin\Debug\net9.0-windows\runtimes\win-x64\native\krb5_64.dll
 C:\Users\Abdel\OneDrive\Desktop\FirstIonideProject\bin\Debug\net9.0-windows\runtimes\win-x64\native\krbcc64.dll
+<<<<<<< HEAD
 E:\collage\final year\semester 1\pl3\FirstIonideProject\bin\Debug\net9.0-windows\FirstIonideProject.exe
 E:\collage\final year\semester 1\pl3\FirstIonideProject\bin\Debug\net9.0-windows\FirstIonideProject.deps.json
 E:\collage\final year\semester 1\pl3\FirstIonideProject\bin\Debug\net9.0-windows\FirstIonideProject.runtimeconfig.json
@@ -82,3 +83,49 @@ E:\collage\final year\semester 1\pl3\FirstIonideProject\obj\Debug\net9.0-windows
 E:\collage\final year\semester 1\pl3\FirstIonideProject\obj\Debug\net9.0-windows\FirstIonideProject.pdb
 E:\collage\final year\semester 1\pl3\FirstIonideProject\obj\Debug\net9.0-windows\FirstIonideProject.genruntimeconfig.cache
 E:\collage\final year\semester 1\pl3\FirstIonideProject\obj\Debug\net9.0-windows\ref\FirstIonideProject.dll
+=======
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\FirstIonideProject.exe
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\FirstIonideProject.deps.json
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\FirstIonideProject.runtimeconfig.json
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\FirstIonideProject.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\FirstIonideProject.pdb
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\BouncyCastle.Cryptography.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\FSharp.Core.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\Google.Protobuf.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\K4os.Compression.LZ4.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\K4os.Compression.LZ4.Streams.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\K4os.Hash.xxHash.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\MySql.Data.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\ZstdSharp.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\cs\FSharp.Core.resources.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\de\FSharp.Core.resources.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\es\FSharp.Core.resources.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\fr\FSharp.Core.resources.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\it\FSharp.Core.resources.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\ja\FSharp.Core.resources.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\ko\FSharp.Core.resources.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\pl\FSharp.Core.resources.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\pt-BR\FSharp.Core.resources.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\ru\FSharp.Core.resources.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\tr\FSharp.Core.resources.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\zh-Hans\FSharp.Core.resources.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\zh-Hant\FSharp.Core.resources.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\runtimes\win-x64\native\comerr64.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\runtimes\win-x64\native\gssapi64.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\runtimes\win-x64\native\k5sprt64.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\runtimes\win-x64\native\krb5_64.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\runtimes\win-x64\native\krbcc64.dll
+B:\Development\F# project\pl3\obj\Debug\net9.0-windows\FirstIonideProject.fsproj.AssemblyReference.cache
+B:\Development\F# project\pl3\obj\Debug\net9.0-windows\FirstIonideProject.AssemblyInfoInputs.cache
+B:\Development\F# project\pl3\obj\Debug\net9.0-windows\FirstIonideProject.AssemblyInfo.fs
+B:\Development\F# project\pl3\obj\Debug\net9.0-windows\FirstIonideProject.fsproj.CoreCompileInputs.cache
+B:\Development\F# project\pl3\obj\Debug\net9.0-windows\FirstIonideProject.sourcelink.json
+B:\Development\F# project\pl3\obj\Debug\net9.0-windows\FirstIon.89638813.Up2Date
+B:\Development\F# project\pl3\obj\Debug\net9.0-windows\FirstIonideProject.dll
+B:\Development\F# project\pl3\obj\Debug\net9.0-windows\refint\FirstIonideProject.dll
+B:\Development\F# project\pl3\obj\Debug\net9.0-windows\FirstIonideProject.pdb
+B:\Development\F# project\pl3\obj\Debug\net9.0-windows\FirstIonideProject.genruntimeconfig.cache
+B:\Development\F# project\pl3\obj\Debug\net9.0-windows\ref\FirstIonideProject.dll
+B:\Development\F# project\pl3\bin\Debug\net9.0-windows\BCrypt.Net-Next.dll
+>>>>>>> 1e983f6edf79c672dac06b5cfd5436698691763f
+E:\collage\final year\semester 1\pl3\FirstIonideProject\bin\Debug\net9.0-windows\BCrypt.Net-Next.dll

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "BP+Z6YI5rOs=",
+  "dgSpecHash": "aj8wbEhLUeM=",
   "success": true,
   "projectFilePath": "E:\\collage\\final year\\semester 1\\pl3\\FirstIonideProject\\FirstIonideProject.fsproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Abdel\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Abdel\\.nuget\\packages\\bouncycastle.cryptography\\2.3.1\\bouncycastle.cryptography.2.3.1.nupkg.sha512",
     "C:\\Users\\Abdel\\.nuget\\packages\\fsharp.core\\9.0.100\\fsharp.core.9.0.100.nupkg.sha512",
     "C:\\Users\\Abdel\\.nuget\\packages\\google.protobuf\\3.26.1\\google.protobuf.3.26.1.nupkg.sha512",
@@ -34,5 +35,12 @@
     "C:\\Users\\Abdel\\.nuget\\packages\\system.windows.extensions\\8.0.0\\system.windows.extensions.8.0.0.nupkg.sha512",
     "C:\\Users\\Abdel\\.nuget\\packages\\zstdsharp.port\\0.8.0\\zstdsharp.port.0.8.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file E:\\collage\\final year\\semester 1\\pl3\\FirstIonideProject\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
