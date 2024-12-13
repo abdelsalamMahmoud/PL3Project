@@ -1,29 +1,41 @@
-﻿# Student Grades Management System
+# Student Grades Management System
 
-## Setup Instructions
+## Project Overview
 
-To get started with the project, follow these steps:
+The Student Grades Management System is a comprehensive F# application designed to streamline student grade management and analysis. Built with Windows Forms and MySQL, this system provides robust functionality for educational administrators and students to track and manage academic performance.
 
-1. **Create the Users Table:** (with the existing table -students-)
-   To store the users, you'll need to create a `Users` table in your MySQL database. Run the following SQL command to create the table:
+## Key Features
 
-   ```sql
-    CREATE TABLE Users (
-    ID INT AUTO_INCREMENT PRIMARY KEY,       -- Unique identifier for each user
-    Username VARCHAR(50) NOT NULL UNIQUE,    -- Username
-    PasswordHash VARCHAR(255) NOT NULL,      -- Hashed password for security
-    Role ENUM('Admin', 'Reader') NOT NULL    -- User role (Admin or Reader)
-    );
+### 1. User Authentication
+- Secure login system with role-based access control
+- Two user roles: Admin and Reader
+- Password hashing using BCrypt for enhanced security
 
-    -- Insert an admin user
-    INSERT INTO Users (Username, PasswordHash, Role) VALUES
-    ('admin', '$2a$11$m81sHWtH.1HIcRnQRb75UOI3TIG./2Yw/GmOXDnZdJQXoUjIPQSNG', 'Admin');
+### 2. Admin Capabilities
+- Full database management
+- Add new students
+- Update existing student information
+- Delete student records
+- View comprehensive class statistics
 
-    
-   CREATE TABLE Students (
-      ID INT PRIMARY KEY AUTO_INCREMENT,
-      Name VARCHAR(255) NOT NULL,
-      Grades VARCHAR(255) NOT NULL,
-      user_id int,
-      FOREIGN KEY (user_id) REFERENCES Users(ID)
-   );
+### 3. Student Grade Management
+- Store and manage student records with multiple grades
+- Calculate individual student averages
+- Generate class-wide statistical insights
+- Identify highest and lowest grades
+
+### 4. Reader Access
+- View personal grade information
+- Refresh grade details
+
+## Technology Stack
+- Language: F#
+- UI Framework: Windows Forms
+- Database: MySQL
+- Authentication: BCrypt.Net
+
+## Prerequisites
+- .NET Framework
+- MySQL Server
+- MySql.Data NuGet Package
+- BCrypt.Net NuGet Package
