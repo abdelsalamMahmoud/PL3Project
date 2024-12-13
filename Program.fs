@@ -5,7 +5,6 @@ open MySql.Data.MySqlClient
 // lib t hash el passwords
 open BCrypt.Net
 
-
 // Define student type with grades as int list
 type Student = { ID: int; Name: string; Grades: int list }
 
@@ -15,42 +14,59 @@ let connectionString = "Server=localhost;Database=StudentDB;User=root;Password=a
 // pass el admin
 let password = "laughtale"
 let hashedPassword = BCrypt.HashPassword(password)
-// only to know the hashed one to store it
-// printfn "Hashed Password: %s" hashedPassword
+
+// Get student by user_id
+let getStudentByUserId userId =
+    use connection = new MySqlConnection(connectionString)
+    connection.Open()
+    let query = "SELECT * FROM Students WHERE user_id = @userId"
+    use command = new MySqlCommand(query, connection)
+    command.Parameters.AddWithValue("@userId", userId) |> ignore
+    use reader = command.ExecuteReader()
+    if reader.Read() then
+        let id = reader.GetInt32("ID")
+        let name = reader.GetString("Name")
+        let grades = reader.GetString("Grades")
+                      .Split(',')
+                      |> Array.map (fun g -> int (float g))
+                      |> List.ofArray
+        Some { ID = id; Name = name; Grades = grades }
+    else
+        None
+
 // authentication
 let authenticateUser username password =
     use connection = new MySqlConnection(connectionString)
     connection.Open()
-    let query = "SELECT PasswordHash, Role FROM Users WHERE Username = @username"
+    let query = "SELECT ID, PasswordHash, Role FROM Users WHERE Username = @username"
     use command = new MySqlCommand(query, connection)
     command.Parameters.AddWithValue("@username", username) |> ignore
     use reader = command.ExecuteReader()
     if reader.Read() then
         let storedHash = reader.GetString("PasswordHash")
         let role = reader.GetString("Role")
-        // Compare the provided password with the stored hash 
+        let userId = reader.GetInt32("ID")
         if BCrypt.Verify(password, storedHash) then
-            Some role
+            Some (role, userId)
         else
             None
     else
         None
 
 // Login function to authenticate the user
-let rec login () : string =
+let rec login () : string * int =
     printf "Enter username: "
     let username = Console.ReadLine()
     printf "Enter password: "
     let password = Console.ReadLine()
 
     match authenticateUser username password with
-    | Some role ->
+    | Some (role, userId) ->
         printfn "Login successful. Role: %s" role
-        role
+        (role, userId)
     | None ->
         printfn "Invalid username or password. Please try again."
         login ()
-
 
 // Function to fetch all students from the database
 let getStudentsFromDB () =
@@ -119,17 +135,13 @@ let deleteStudentFromDB id =
     command.Parameters.AddWithValue("@id", id) |> ignore
     command.ExecuteNonQuery() |> ignore
     printfn "تم حذف الطالب ID: %d" id
-
-[<EntryPoint>]
+    [<EntryPoint>]
 let main argv =
-    // before el system work, make sure mn el identity of the user (should be 'admin' to work)
-    let role = login()
-    // Create the form
+    let (role, userId) = login()
     let form = new Form(Text = "Student Grades Management System", Width = 800, Height = 600)
 
-    // check if the user is gangster 
-    if role = "Admin" then
-        
+    match role with
+    | "Admin" ->
         // Create a ListBox to display students
         let listBox = new ListBox(Dock = DockStyle.Left, Width = 250)
         
@@ -318,9 +330,48 @@ let main argv =
         form.Controls.Add(addButton)
         form.Controls.Add(deleteButton)
         form.Controls.Add(updateButton)
-    
-    else
-        MessageBox.Show("You do not have the rights to call yourself a west coast gangster") |> ignore
-    // Run the application
+
+    | "Reader" ->
+        // Create a TextBox for displaying student details
+        let detailsBox = new TextBox(
+            Multiline = true, 
+            ReadOnly = true, 
+            Dock = DockStyle.Fill,
+            Font = new Font("Arial", 12.0f))
+
+        match getStudentByUserId userId with
+        | Some student ->
+            let avg = calculateAverage student.Grades
+            detailsBox.Text <- 
+                sprintf "Student Details:\n\nID: %d\nName: %s\nGrades: %s\nAverage: %d" 
+                    student.ID 
+                    student.Name 
+                    (String.Join(", ", student.Grades)) 
+                    avg
+        | None ->
+            detailsBox.Text <- "No grade information found for this student."
+
+        // Add a refresh button
+        let refreshButton = new Button(Text = "Refresh Grades", Dock = DockStyle.Top)
+        refreshButton.Click.Add(fun _ ->
+            match getStudentByUserId userId with
+            | Some student ->
+                let avg = calculateAverage student.Grades
+                detailsBox.Text <- 
+                    sprintf "Student Details:\n\nID: %d\nName: %s\nGrades: %s\nAverage: %d" 
+                        student.ID 
+                        student.Name 
+                        (String.Join(", ", student.Grades)) 
+                        avg
+            | None ->
+                detailsBox.Text <- "No grade information found for this student."
+        )
+
+        form.Controls.Add(detailsBox)
+        form.Controls.Add(refreshButton)
+
+    | _ ->
+        MessageBox.Show("Invalid role") |> ignore
+
     Application.Run(form)
-    0 
+    0
