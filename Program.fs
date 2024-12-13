@@ -135,7 +135,8 @@ let deleteStudentFromDB id =
     command.Parameters.AddWithValue("@id", id) |> ignore
     command.ExecuteNonQuery() |> ignore
     printfn "تم حذف الطالب ID: %d" id
-    [<EntryPoint>]
+
+[<EntryPoint>]
 let main argv =
     let (role, userId) = login()
     let form = new Form(Text = "Student Grades Management System", Width = 800, Height = 600)
@@ -371,7 +372,7 @@ let main argv =
         form.Controls.Add(refreshButton)
 
     | _ ->
-        MessageBox.Show("Invalid role") |> ignore
+        MessageBox.Show("You don't have the rights to call yourself a west coast gangester") |> ignore
 
     Application.Run(form)
     0
