@@ -39,3 +39,62 @@ The Student Grades Management System is a comprehensive F# application designed 
 - MySQL Server
 - MySql.Data NuGet Package
 - BCrypt.Net NuGet Package
+
+## Database Setup
+
+### Users Table
+```sql
+CREATE TABLE Users (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(50) NOT NULL UNIQUE,
+    PasswordHash VARCHAR(255) NOT NULL,
+    Role ENUM('Admin', 'Reader') NOT NULL
+);
+```
+
+### Students Table
+```sql
+CREATE TABLE Students (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(255) NOT NULL,
+    Grades VARCHAR(255) NOT NULL,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES Users(ID)
+);
+```
+
+### Initial Admin User Setup
+```sql
+INSERT INTO Users (Username, PasswordHash, Role) VALUES
+('admin', '$2a$11$m81sHWtH.1HIcRnQRb75UOI3TIG./2Yw/GmOXDnZdJQXoUjIPQSNG', 'Admin');
+```
+
+## Installation Steps
+
+1. Clone the repository
+2. Install required NuGet packages
+3. Configure MySQL connection string in the code
+4. Run the database setup scripts
+5. Build and run the application
+
+## Usage
+
+### Admin Login
+- Username: admin
+- Password: laughtale
+
+### Functionality
+- Admins can add, edit, and delete student records
+- Readers can view their personal grade information
+- Class-wide statistics are available for administrators
+
+## Security Notes
+- Passwords are securely hashed
+- Role-based access control implemented
+- Sensitive information is protected
+
+## Future Enhancements
+- Implement more advanced reporting
+- Add data export functionality
+- Enhance user interface
+- Implement more granular permission levels
